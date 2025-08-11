@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login semplice</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 400px; margin: 2rem auto; }
+    label { display: block; margin: 0.6rem 0 0.2rem; }
+    input[type=text], input[type=password] { width: 100%; padding: 0.5rem; box-sizing: border-box; }
+    button { margin-top: 1rem; padding: 0.6rem 1rem; }
+    .error { color: red; margin-top: 0.8rem; }
+    .hidden { display: none; }
+    .link-access { margin-top: 1rem; }
+  </style>
+</head>
+<body>
+
+<h2>Accesso riservato</h2>
+
+<form id="login-form">
+  <label for="username">Nome utente:</label>
+  <input type="text" id="username" name="username" required />
+
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" required />
+
+  <button type="submit">Accedi</button>
+</form>
+
+<div id="error-msg" class="error hidden">Username o password errati.</div>
+
+<div id="access-link" class="link-access hidden">
+  <p>Accesso consentito! Clicca qui per procedere:</p>
+  <a href="https://esempio.com/pagina-riservata" target="_blank">Vai alla pagina riservata</a>
+</div>
+
+<script>
+  const form = document.getElementById('login-form');
+  const errorMsg = document.getElementById('error-msg');
+  const accessLink = document.getElementById('access-link');
+
+  // Imposta qui le credenziali corrette
+  const validUsername = "turris";
+  const validPassword = "p@ssw0rd123";
+
+  form.addEventListener('submit', function(event) {
+    event.preventDefault(); // blocca invio form
+
+    const username = form.username.value.trim();
+    const password = form.password.value;
+
+    if(username === validUsername && password === validPassword) {
+      errorMsg.classList.add('hidden');
+      accessLink.classList.remove('hidden');
+      form.style.display = 'none';
+    } else {
+      errorMsg.classList.remove('hidden');
+      accessLink.classList.add('hidden');
+    }
+  });
+</script>
+
+</body>
+</html>
