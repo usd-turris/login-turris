@@ -7,21 +7,52 @@
   <style>
     body {
       font-family: 'Roboto', Arial, sans-serif;
-      max-width: 400px;
       margin: 2rem auto;
       text-align: center;
+      background: transparent;
+      color: black;
+    }
+    .container {
+      background-color: rgba(255, 255, 255, 0.85); /* sfondo chiaro semitrasparente */
+      padding: 30px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+    }
+    h2 {
+      color: black;
     }
     input {
       width: 100%;
-      padding: 8px;
-      margin: 10px 0;
-      box-sizing: border-box;
+      padding: 12px 15px;
+      margin: 12px 0;
+      border: none;
+      border-radius: 6px;
+      background-color: #f0f0f0;
+      font-size: 1rem;
+      color: black;
+    }
+    input:focus {
+      outline: none;
+      background-color: #e0e0e0;
     }
     button {
-      padding: 10px 20px;
+      width: 100%;
+      padding: 14px;
+      background-color: #1e90ff;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0f63c9;
     }
     .error {
-      color: red;
+      color: #ff4c4c;
       display: none;
       margin-top: 10px;
     }
@@ -29,33 +60,31 @@
 </head>
 <body>
 
-<h2>Accesso riservato</h2>
+<div class="container">
+  <h2>Accesso riservato</h2>
 
-<form id="loginForm">
-  <input type="text" name="username" placeholder="Nome utente" required />
-  <input type="password" name="password" placeholder="Password" required />
-  <button type="submit">Accedi</button>
-</form>
+  <form id="loginForm">
+    <input type="text" name="username" placeholder="Nome utente" required />
+    <input type="password" name="password" placeholder="Password" required />
+    <button type="submit">Accedi</button>
+  </form>
 
-<p id="errorMsg" class="error">Username o password errati!</p>
+  <p id="errorMsg" class="error">Username o password errati!</p>
+</div>
 
 <script>
   const form = document.getElementById('loginForm');
   const errorMsg = document.getElementById('errorMsg');
 
-  // Mappa username => password (aggiungi o modifica a piacere)
   const validCredentials = {
     "mario": "pass123",
     "anna": "qwerty",
     "luca": "abc123",
-    // aggiungi altre coppie qui
   };
 
-  // URL del Google Apps Script (già inserito il tuo)
   const scriptURL = "https://script.google.com/macros/s/AKfycbxumkY5h2Vl0_L2ZPLE9IrXESe4Gi2-QH0OYndzT95MDeG-87JRn4kPJHc2NBg32PmffA/exec";
 
-  // URL di destinazione (pagina riservata)
-  const redirectURL = "https://www.tuosito.it/pagina-privata";
+  const redirectURL = "https://tuo-username.github.io/nome-repository/pagina-privata.html";
 
   form.addEventListener('submit', function(event) {
     event.preventDefault();
@@ -66,7 +95,6 @@
     if(validCredentials[username] && validCredentials[username] === password) {
       errorMsg.style.display = "none";
 
-      // Salva il login nel Google Sheet (incrementa contatore)
       fetch(scriptURL, {
         method: 'POST',
         body: JSON.stringify({ username: username }),
@@ -74,20 +102,8 @@
       })
       .then(response => response.json())
       .then(data => {
-        // Redirect automatico dopo il salvataggio
         window.location.href = redirectURL;
       })
       .catch(error => {
-        // Anche in caso di errore nel salvataggio, fai il redirect
-        window.location.href = redirectURL;
-      });
-
-    } else {
-      errorMsg.style.display = "block";
-    }
-  });
-</script>
-
-</body>
-</html>
+        window.lo
 
